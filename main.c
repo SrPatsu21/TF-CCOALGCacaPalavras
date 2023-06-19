@@ -1,14 +1,5 @@
 /*
 https://docs.google.com/document/d/1n2K9iVMPZMRXeMMaGEXGU1qGXTD1TE6DZbKHPIa3zKE/edit
-
-recursos usados
-Stack overflow = 4x
-W3schools = 2x
-ajuda divina = 3x
-meus codigos = 2x
-outros sites = 2x
-xingamentos = 6x
-bug fix = ∞x
 */
 #include <stdio.h>
 #include <string.h>
