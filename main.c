@@ -80,7 +80,7 @@ char ** recebePalavras(int tm, int tam){
 }
 //caso nao encontrado
 ROI semPosicao(){
-	ROI posicao = (ROI){.li = 0, .ci = 0, .lf = 0, .cf = 0};
+	ROI posicao = (ROI){.ci = 0, .li = 0, .cf = 0, .lf = 0};
 	return posicao;
 }
 //verifica horizontal
@@ -89,7 +89,7 @@ ROI verificaHorizontal(int tm, char* grade, char* palavra, int tmpalavra, int i,
 	for(k = 0; (k < tmpalavra) && (k+i < tm) && (grade[((k+j)+i*tm)] == palavra[k]); k++){}
 	ROI posicao;
 	if(k == tmpalavra){
-    	posicao = (ROI){.li = j, .ci = i, .lf = (j+k-1), .cf = i};
+    	posicao = (ROI){.ci = j, .li = i, .cf = (j+k-1), .lf = i};
 	}else{
     	posicao = semPosicao();
 	}
@@ -101,7 +101,7 @@ ROI verificaVertical(int tm, char* grade, char* palavra, int tmpalavra, int i, i
 	for(k = 0; (k < tmpalavra) && (k+i < tm) && (grade[(j+(i+k)*tm)] == palavra[k]); k++){}
 	ROI posicao;
 	if(k == tmpalavra){
-    	posicao = (ROI){.li = j, .ci = i, .lf = j, .cf = (i+k-1)};
+    	posicao = (ROI){.ci = j, .li = i, .cf = j, .lf = (i+k-1)};
 	}else{
     	posicao = semPosicao();
 	}
@@ -113,7 +113,7 @@ ROI verificaDiagonalParaBaixo(int tm, char* grade, char* palavra, int tmpalavra,
 	for(k = 0; (k < tmpalavra) && (k+i < tm) && (k+j < tm) && (grade[((j+k)+(i+k)*tm)] == palavra[k]); k++){}
 	ROI posicao;
 	if(k == tmpalavra){
-    	posicao = (ROI){.li = j, .ci = i, .lf = (j+k-1), .cf = (i+k-1)};
+    	posicao = (ROI){.ci = j, .li = i, .cf = (j+k-1), .lf = (i+k-1)};
 	}else{
     	posicao = semPosicao();
 	}
@@ -125,7 +125,7 @@ ROI verificaDiagonalParaCima(int tm, char* grade, char* palavra, int tmpalavra, 
 	for(k = 0; (k < tmpalavra) && (i-k >= 0) && (k+j < tm) && (grade[((j+k)+(i-k)*tm)] == palavra[k]); k++){}
 	ROI posicao;
 	if(k == tmpalavra){
-    	posicao = (ROI){.li = j, .ci = i, .lf = (j+k-1), .cf = (i-k+1)};
+    	posicao = (ROI){.ci = j, .li = i, .cf = (j+k-1), .lf = (i-k+1)};
 	}else{
     	posicao = semPosicao();
 	}
@@ -137,7 +137,7 @@ ROI verificaHorizontalInvertida(int tm, char* grade, char* palavra, int tmpalavr
     for(k = 0; (k < tmpalavra) && (j-k >= 0) && (grade[((j-k)+i*tm)] == palavra[k]); k++){}
 	ROI posicao;
 	if(k == tmpalavra){
-    	posicao = (ROI){.li = j, .ci = i, .lf = (j-k+1), .cf = i};
+    	posicao = (ROI){.ci = j, .li = i, .cf = (j-k+1), .lf = i};
 	}else{
     	posicao = semPosicao();
 	}
@@ -149,7 +149,7 @@ ROI verificaVerticalInvertida(int tm, char* grade, char* palavra, int tmpalavra,
 	for(k = 0; (k < tmpalavra) && (i-k < tm) && (grade[(j+(i-k)*tm)] == palavra[k]); k++){}
 	ROI posicao;
 	if(k == tmpalavra){
-    	posicao = (ROI){.li = j, .ci = i, .lf = j, .cf = (i-k+1)};
+    	posicao = (ROI){.ci = j, .li = i, .cf = j, .lf = (i-k+1)};
 	}else{
     	posicao = semPosicao();
 	}
@@ -161,7 +161,7 @@ ROI verificaDiagonalParaBaixoInvertida(int tm, char* grade, char* palavra, int t
     for(k = 0; (k < tmpalavra) && (k+i < tm) && (j-k >= 0) && (grade[((j-k)+(i+k)*tm)] == palavra[k]); k++){}
 	ROI posicao;
     	if(k == tmpalavra){
-        	posicao = (ROI){.li = j, .ci = i, .lf = (j-k+1), .cf = (i+k-1)};
+        	posicao = (ROI){.ci = j, .li = i, .cf = (j-k+1), .lf = (i+k-1)};
     	}else{
         	posicao = semPosicao();
     	}
@@ -173,7 +173,7 @@ ROI verificaDiagonalParaCimaInvertida(int tm, char* grade, char* palavra, int tm
     for(k = 0; (k < tmpalavra) && (j-k >= 0) && (j-k >= 0) && (grade[((j-k)+(i-k)*tm)] == palavra[k]); k++){}
 	ROI posicao;
     	if(k == tmpalavra){
-        	posicao = (ROI){.li = j, .ci = i, .lf = (j-k+1), .cf = (i-k+1)};
+        	posicao = (ROI){.ci = j, .li = i, .cf = (j-k+1), .lf = (i-k+1)};
     	}else{
         	posicao = semPosicao();
     	}
@@ -245,7 +245,7 @@ int main(){
     for(int i = 0; i < tam; i++){
    	 char* palavra = &palavras[i][0];
    	 posicao[i] = localizaPalavra (tm, grade, palavra);
-    	printf("\n %s: \n [%i][%i] ate [%i][%i]", palavra, posicao[i].li, posicao[i].ci, posicao[i].lf, posicao[i].cf);
+    	printf("\n %s: \n [%i][%i] ate [%i][%i]", palavra, posicao[i].ci, posicao[i].li, posicao[i].cf, posicao[i].lf);
 	}
 	//limpa matriz
 	freeVet(grade);
